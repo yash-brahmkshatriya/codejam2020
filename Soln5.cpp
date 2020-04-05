@@ -1,12 +1,10 @@
 /*
-  Author: @yash_31
+    Author: @yash_31
 */
 #include<bits/stdc++.h>
-#include <ext/pb_ds/assoc_container.hpp>
-#include <ext/pb_ds/tree_policy.hpp> 
-#include <functional>
 #define ll long long int
 #define eb emplace_back
+#define pb push_back
 #define fatafat ios_base::sync_with_stdio(false);cin.tie(NULL);cout.tie(NULL);
 #define MOD 1000000007
 #define ft first
@@ -16,62 +14,89 @@
 #define mkpr make_pair
 #define todec() to_ulong()
 #define toldec() to_ullong()
-#define deb(x) std::cout<<#x<<":"<<x<<endl;
+#define deb(x) std::cout<<"["<<#x<<":"<<x<<"]"<<endl;
 #define whole(x) (x).begin(),(x).end()
-#define revwhole(x) (x).rbegin(),(x).rend()
-#define endl "\n"
-#define fbo find_by_order
-#define ook order_of_key
- 
-using namespace std; 
-using namespace __gnu_pbds;
-typedef tree<ll, null_type, less<ll>, rb_tree_tag,tree_order_statistics_node_update> gharKaSet;
- 
-const int maxlimit=1e5+2;
-const ll inf=1e12;
 
-bool isrsafe[70][70], iscsafe[70][70], done;
-int matrix[70][70], n, k, tt;
+using namespace std;
 
-void genAns(int r, int c, int m) {
-    if (r == n && c == n + 1 && m == k && !done) {
-        done = true;
-        cout << "Case #" << tt << ": " << "POSSIBLE\n";
-        for (int i = 1; i <= n; ++i) {
-            for (int j = 1; j <= n; ++j) {
-                cout << matrix[i][j] << " ";
-            }
-            cout << "\n";
-        }
-        return;
-    }
-    else if (r > n) {return;}
-    else if (c > n) {genAns(r + 1, 1, m);}
-    for (int i = 1; i <= n && !done; ++i) {
-        if (!isrsafe[r][i] && !iscsafe[c][i]) {
-            isrsafe[r][i] = iscsafe[c][i] = true;
-            if (r == c) {m += i;}
-            matrix[r][c] = i;
-            genAns(r, c + 1, m);
-            isrsafe[r][i] = iscsafe[c][i] = false;
-            if (r == c) {m -= i;}
-            matrix[r][c] = 0;
-        }
-    }
+void n2(int trace){
+  if(trace==2){
+    cout<<"POSSIBLE"<<endl;
+    cout<<"1 2\n2 1"<<endl;
+  }
+  else if(trace==4){
+    cout<<"POSSIBLE"<<endl;
+    cout<<"2 1\n1 2"<<endl;
+  }
+  else cout<<"IMPOSSIBLE"<<endl;
+}
+
+void n3(int trace){
+  if(trace==3){cout<<"POSSIBLE"<<endl;cout<<"1 2 3\n3 1 2\n2 3 1"<<endl;}
+  else if(trace==6){cout<<"POSSIBLE"<<endl;cout<<"1 2 3\n2 3 1\n3 1 2"<<endl;}
+  else if(trace==9){cout<<"POSSIBLE"<<endl;cout<<"3 1 2\n2 3 1\n1 2 3"<<endl;}
+  else cout<<"IMPOSSIBLE"<<endl;
+}
+
+void n4(int trace){
+  if(trace==4){cout<<"POSSIBLE"<<endl;cout<<"1 2 3 4\n4 1 2 3\n3 4 1 2\n2 3 4 1\n";}
+  else if(trace==6){cout<<"POSSIBLE"<<endl;cout<<"1 2 3 4\n2 1 4 3\n3 4 2 1\n4 3 1 2\n";}
+  else if(trace==7){cout<<"POSSIBLE"<<endl;cout<<"1 2 3 4\n3 1 4 2\n4 3 2 1\n2 4 1 3\n";}
+  else if(trace==8){cout<<"POSSIBLE"<<endl;cout<<"1 2 3 4\n2 3 4 1\n3 4 1 2\n4 1 2 3\n";}
+  else if(trace==9){cout<<"POSSIBLE"<<endl;cout<<"1 2 3 4\n2 4 1 3\n4 3 2 1\n3 1 4 2\n";}
+  else if(trace==10){cout<<"POSSIBLE"<<endl;cout<<"1 2 3 4\n2 4 1 3\n3 1 4 2\n4 3 2 1\n";}
+  else if(trace==11){cout<<"POSSIBLE"<<endl;cout<<"1 2 3 4\n3 4 2 1\n2 1 4 3\n4 3 1 2\n";}
+  else if(trace==12){cout<<"POSSIBLE"<<endl;cout<<"1 2 3 4\n3 4 1 2\n2 3 4 1\n4 1 2 3\n";}
+  else if(trace==13){cout<<"POSSIBLE"<<endl;cout<<"2 1 3 4\n3 4 2 1\n1 3 4 2\n4 2 1 3\n";}
+  else if(trace==14){cout<<"POSSIBLE"<<endl;cout<<"3 1 2 4\n1 4 3 2\n2 3 4 1\n4 2 1 3\n";}
+  else if(trace==16){cout<<"POSSIBLE"<<endl;cout<<"4 1 2 3\n1 4 3 2\n2 3 4 1\n3 2 1 4\n";}
+  // else if(trace==8){cout<<"POSSIBLE"<<endl;cout<<"2 1 3 4\n1 2 4 3\n4 3 2 1\n3 4 1 2\n";}
+  // else if(trace==9){cout<<"POSSIBLE"<<endl;cout<<"2 4 1 3\n3 1 4 2\n4 3 2 1\n1 2 3 4\n";}
+  // else if(trace==10){cout<<"POSSIBLE"<<endl;cout<<"1 4 2 3\n3 2 4 1\n4 1 3 2\n2 3 1 4\n";}
+  // else if(trace==11){cout<<"POSSIBLE"<<endl;cout<<"3 4 2 1\n1 3 4 2\n4 2 1 3\n2 1 3 4\n";}
+  // else if(trace==12){cout<<"POSSIBLE"<<endl;cout<<"3 4 2 1\n1 3 4 2\n2 1 3 4\n4 2 1 3\n";}
+  // else if(trace==13){cout<<"POSSIBLE"<<endl;cout<<"3 4 2 1\n4 2 1 3\n1 3 4 2\n2 1 3 4\n";}
+  // else if(trace==14){cout<<"POSSIBLE"<<endl;cout<<"3 1 4 2\n2 4 1 3\n4 2 3 1\n1 3 2 4\n";}
+  // else if(trace==16){cout<<"POSSIBLE"<<endl;cout<<"4 2 1 3\n1 4 3 2\n2 3 4 1\n3 1 2 4\n";}
+  else cout<<"IMPOSSIBLE"<<endl;
+}
+
+void n5(int trace){
+  if(trace==5){cout<<"POSSIBLE"<<endl;cout<<"1 2 3 4 5\n2 1 4 5 3\n3 5 1 2 4\n4 3 5 1 2\n5 4 2 3 1\n";} 
+  else if(trace==7){cout<<"POSSIBLE"<<endl;cout<<"1 2 3 4 5\n3 1 4 5 2\n4 5 2 1 3\n5 3 1 2 4\n2 4 5 3 1\n";}
+  else if(trace==8){cout<<"POSSIBLE"<<endl;cout<<"1 2 3 4 5\n2 1 4 5 3\n3 5 1 2 4\n5 4 2 3 1\n4 3 5 1 2\n";}
+  else if(trace==9){cout<<"POSSIBLE"<<endl;cout<<"1 2 3 4 5\n2 1 4 5 3\n4 5 1 3 2\n3 4 5 2 1\n5 3 2 1 4\n";}
+  else if(trace==10){cout<<"POSSIBLE"<<endl;cout<<"1 5 2 4 3\n4 2 3 1 5\n3 4 1 5 2\n5 3 4 2 1\n2 1 5 3 4\n";}
+  else if(trace==11){cout<<"POSSIBLE"<<endl;cout<<"1 2 3 4 5\n2 3 1 5 4\n3 5 4 1 2\n4 1 5 2 3\n5 4 2 3 1\n";}
+  else if(trace==12){cout<<"POSSIBLE"<<endl;cout<<"1 2 3 4 5\n2 3 1 5 4\n3 4 5 1 2\n5 1 4 2 3\n4 5 2 3 1\n";}
+  else if(trace==13){cout<<"POSSIBLE"<<endl;cout<<"1 2 3 4 5\n2 3 1 5 4\n5 1 4 2 3\n4 5 2 3 1\n3 4 5 1 2\n";}
+  else if(trace==14){cout<<"POSSIBLE"<<endl;cout<<"1 2 3 4 5\n2 1 4 5 3\n3 4 5 1 2\n4 5 2 3 1\n5 3 1 2 4\n";}
+  else if(trace==15){cout<<"POSSIBLE"<<endl;cout<<"1 2 3 4 5\n2 3 1 5 4\n3 4 5 1 2\n4 5 2 3 1\n5 1 4 2 3\n";}
+  else if(trace==16){cout<<"POSSIBLE"<<endl;cout<<"1 2 3 4 5\n2 3 4 5 1\n4 1 5 2 3\n5 4 1 3 2\n3 5 2 1 4\n";}
+  else if(trace==17){cout<<"POSSIBLE"<<endl;cout<<"1 2 3 4 5\n2 4 1 5 3\n4 3 5 2 1\n5 1 4 3 2\n3 5 2 1 4\n";}
+  else if(trace==18){cout<<"POSSIBLE"<<endl;cout<<"1 2 3 4 5\n2 4 5 1 3\n3 5 4 2 1\n4 3 1 5 2\n5 1 2 3 4\n";}
+  else if(trace==19){cout<<"POSSIBLE"<<endl;cout<<"1 2 3 4 5\n2 5 1 3 4\n3 4 5 1 2\n4 3 2 5 1\n5 1 4 2 3\n";}
+  else if(trace==20){cout<<"POSSIBLE"<<endl;cout<<"1 2 3 4 5\n2 5 4 1 3\n3 4 5 2 1\n4 3 1 5 2\n5 1 2 3 4\n";}
+  else if(trace==21){cout<<"POSSIBLE"<<endl;cout<<"2 1 3 4 5\n1 5 4 2 3\n3 4 5 1 2\n4 3 2 5 1\n5 2 1 3 4\n";}
+  else if(trace==22){cout<<"POSSIBLE"<<endl;cout<<"3 1 2 4 5\n1 5 4 2 3\n2 4 5 3 1\n4 3 1 5 2\n5 2 3 1 4\n";}
+  else if(trace==23){cout<<"POSSIBLE"<<endl;cout<<"4 1 2 3 5\n1 5 3 4 2\n2 4 5 1 3\n3 2 4 5 1\n5 3 1 2 4\n";}
+  else if(trace==25){cout<<"POSSIBLE"<<endl;cout<<"5 1 2 3 4\n1 5 3 4 2\n2 4 5 1 3\n3 2 4 5 1\n4 3 1 2 5\n";}
+  else cout<<"IMPOSSIBLE"<<endl;
 }
 
 int main()
 {
-    fatafat
-    int t;
-    cin>>t;
-    for (tt = 1; tt <= t; tt++) {
-        cin>>n>>k;
-        genAns(1, 1, 0);
-        if (!done) {
-            cout << "Case #" << tt << ": " << "IMPOSSIBLE\n";
-        }
-        done = false;
-    }
-    return 0;
+  fatafat
+  int t,trace,n;
+  cin>>t;
+  for(int tt=1;tt<=t;tt++){
+    cin>>n>>trace;
+    cout<<"Case #"<<tt<<": ";
+    if(n==2){n2(trace);}
+    else if(n==3){n3(trace);}
+    else if(n==4){n4(trace);}
+    else if(n==5){n5(trace);}
+    else cout<<"-\n";
+  }
+  return 0;
 }
